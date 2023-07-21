@@ -613,6 +613,11 @@ export default {
 							throw e
 						}
 						this.clearFeedback()
+						//load the mailboxes if missing
+						if(this.$store.getters.getMailboxes(this.account.accountId).length==0){
+							await this.$store.dispatch('finishAccountSetup', { account })
+							window.reload()
+						}
 					}
 					this.feedback = t('mail', 'Account updated')
 				}
